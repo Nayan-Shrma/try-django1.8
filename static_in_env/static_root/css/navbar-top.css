@@ -1,0 +1,14 @@
+/* Show it's not fixed to the top */
+body {
+  min-height: 60rem;
+}
+.navbar-dark .navbar-toggler {
+  /* color: #dc3545; */
+  border-color: transparent !important;
+}
+.navbar-toggler:hover{
+ background-color: gray
+}
+.navbar {
+  padding: .8rem 2rem;
+}

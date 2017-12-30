@@ -1,0 +1,60 @@
+{% load staticfiles %}
+<nav class="navbar navbar-expand-md mb-4 navbar-dark bg-dark ">   <!--mb4 margin bottom-->
+  <div class = "container">
+    <a class="navbar-brand" href="{% url 'home' %}"><img src = "{% static 'img/mvp_landing_logo.png' %}"/></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'about' %}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+        </li>
+        <!-- <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li> -->
+      </ul>
+
+      
+
+
+      {% if not request.user.is_authenticated and not "/accounts/login" in request.get_full_path %}
+      <form class = "navbar-form form-inline navbar-right" method ='POST' action = "{% url 'auth_login' %}">{% csrf_token %}
+        <div class = "form-group">
+            <!-- <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span> -->
+            <input class="form-control mr-sm-3" type="text" name="username" placeholder="UserName">
+            <input class="form-control mr-sm-3" type="password" name="password" placeholder="Password" >
+        </div>
+      
+        <div class = "form-group">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+        </div>
+      
+      </form>
+      {% endif %}
+
+      <div class="m-3 "></div>
+
+      <ul class = "navbar-nav navbar-right">
+          {% if request.user.is_authenticated %}
+             <li class="nav-item active"><a class="nav-link" href = "{% url 'auth_logout' %}">Logout</a></li>
+           {% else %}
+             <!-- <li class="nav-item active"><a class="nav-link" href = "{% url 'auth_login' %}">Login</a></li> -->
+             <li class="nav-item active"><a class="nav-link" href = "{% url 'registration_register' %}">Register</a></li>
+               {% endif %}
+           </ul>
+     
+        
+      <!-- <form class="form-inline mt-2 mt-md-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form> -->
+    </div>
+    </div>
+  </nav>

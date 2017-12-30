@@ -1,0 +1,143 @@
+{% extends "base.html"%}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block head_title %}Welcome |{{block.super}}{% endblock %}
+
+<style>
+    {% block style %}
+    .navbar-expand-md{
+        margin-bottom: 0px !important;
+    }
+    .jumbotron {
+        background-color:#ead8b6;
+    }
+    .img
+    {
+        max-height: 100% !important;
+        max-width: 100% !important;
+    }    
+    
+    {% endblock %}
+
+</style>
+
+    
+{% block jumbotron%}
+{% if not request.user.is_authenticated %}
+<div class="jumbotron" style = "padding: 2rem 2rem;">
+        <main role="main" class="container">
+    <div class = "row">
+
+            <div class = "col-sm-7">
+                <br>
+                <h1>My New Page</h1>
+                <br>
+                <p class="lead">This example is a quick exercise to illustrate how the Django flows.<br>Making New Apps ,Static files Working and managing the stuff Django Way </p>
+                <br><br>
+                <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">Join Us &raquo;</a>
+            </div>
+
+            <div class = "col-sm-5" >
+           <div class="container">
+                <!-- <div class ="embed-responsive embed-responsive-16by9">
+                    <!-- style = "background-color:black;height:300px" -->
+                <!-- <iframe class = "embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/2uLYO1LUf6Q" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+                </div> --> 
+                
+                        <!-- style = "background-color:black;height:300px" -->
+                    <img width="560" height="315" src="{% static 'img/lappy.jpeg' %}" />
+                    
+           </div>
+    </div>
+    </main>
+</div>
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+{% if request.user.is_authenticated %}
+ 
+<h1>Congo !! You are Logged in ....</h1>
+<br/>
+
+    {% if queryset %}
+
+
+    <h2 class = "text-align-center"><u>Welcome Admin</u></h2>
+
+    <br/>
+    <table class = "table">
+    {% for instance in queryset %}
+    
+       <tr> <td>{{forloop.counter}}</td><td>{{instance}}</td><td>{{instance.full_name}}</td><td>{{instance.timestamp|timesince}} ago</td></tr>
+
+    {% endfor %}
+    </table>
+
+    {% endif %}
+
+{% else %}
+<div class = "row">
+        
+
+    <div class = "col-sm-3">
+            <p class = "lead text-align-center">Django &amp Bootstrap</p>
+           
+            <img src = '{% static "img/keyboard.jpeg" %}' class= "img img-responsive"/>
+            <!-- <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src = '{% static "img/keyboard.jpeg" %}'></iframe>
+              </div> -->
+              
+        </div>
+       
+    
+     <div class = "col-sm-3">
+            <p class = "lead text-align-center">Created for starters 
+                <br/>
+                <!-- <i class="fa fa-bolt fa-5x " aria-hidden="true"></i> -->
+                <span class="fa-stack fa-lg fa-5x">
+                        <i class="fa fa-comment-o fa-stack-2x"></i>
+                        <i style = "color:salmon " class="fa fa-bolt fa-stack-1x"></i>
+                      </span>
+           
+            </p>
+        </div>
+       
+        <div class = "col-sm-3">
+                <p class = "lead text-align-center">Fun learning django
+                    <br>
+                        <!-- <i class="fa fa-circle-o-notch fa-5x fa-fw"></i> -->
+                        <span class="fa-stack fa-lg fa-5x">
+                                <i style = "color:mediumpurple " class="fa fa-square-o fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x"></i>
+                              </span>
+                </p>
+            </div>
+
+
+            <div class = "col-sm-3">
+                    
+                        
+                                    <p class = "lead text-align-center"><b>{{ title }}</b></p>
+                    
+                                    {{user}}
+                                    {{request.user}}
+                    
+                    
+                    
+                                    <form method='POST' action=''>{% csrf_token %}
+                    
+                                        {{form|crispy}}
+                    
+                                        <input class = 'btn btn-primary' type="submit" value = "Sign Up"/>
+                    
+                                        </form>
+                         </div>       
+                   
+       
+           
+</div>
+{% endif %}
+{% endblock %}    
